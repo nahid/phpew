@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>aniPHP :: User Manual</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" >
+	<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="css/jquery.snippet.css">
+</head>
+<body>
+<div class="container">
+	<div class="row">
+		<div class="col-lg-12">
+		 	<h1>Files</h1>
+		 	<p>
+			<strong>Files</strong> হল এ ফ্রেমওয়ার্কের কোর লাইব্রেরী। এটি File সংক্রান্ত যাবতীয় কাজ সম্পাদন করে। এ সংক্রান্ত সকল কাজ Files instance ব্যবহার করে করতে হবে।
+
+<h3>Download File</h3>
+<code>download()</code> খুবই প্রয়োজনীয় একটি মেথড যার মাধ্যমে খুব সহজেই আপনি যেকোনো File download এর কাজ করতে পারবেন। এটি ডাইনামিক ডাউনলোড সিস্টেম। ইউজান কখনওই আপনার ডাউনলোডকৃত ফাইলের লোকেশন জানতে পারবেনা। আপনি চাইলে আপনার সার্ভারের ফাইলেকে অন্য নামেও ডাউনলোড করাতে পারেবেন। এ মেথডটির দুটি প্যারামিটার একটি ফাইলের পুর্নাঙ্গ পাথ আর অন্যটি আপনি কি নামে ফাইলটি ডাউনলোড করাবেন সে নামটি <br/> ধরি <code>assets/doanload/abc.jpg</code> file টি ডাউনলোড করবেন। এবং যখন ডাউনলোড হবে তখন এর নাম পরিবর্তন হয়ে হবে <code>my_photo.jpg</code>
+<pre class="code">
+Files::download(basePath()."assets".DS."download".DS."abc.jpg", "my_photo.jpg");</pre>
+এর ফলে <code>abc.jpg</code> file টি <code>my_photo.jpg</code> নামে ডাউনলোড হবে।
+
+	</p>
+		</div>
+		
+	</div>
+</div>
+<script type="text/javascript" src="js/jquery.js"></script>
+<script type="text/javascript" src="js/bootstrap.min.js"></script>
+<script type="text/javascript" src="js/jquery.snippet.js"></script>
+
+<script type="text/javascript">
+	$(document).ready(function(){
+$("pre.code").snippet("php",{style:"blacknblue",transparent:false});
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>aniPHP :: User Manual</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" >
+	<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="css/jquery.snippet.css">
+</head>
+<body>
+<div class="container">
+	<div class="row">
+		<div class="col-lg-12">
+		 	<h1>Introduce with PHPew 3.1</h1>
+		 	<p>
+		 	<strong>PHPew</strong> হল একটি No MVC টাইপ ফ্রেমওয়ার্ক। এটি মুলত <strong>PHP</strong> এর অভ্যন্তরীন কার্যপ্রনালী ভালো করে জানার জন্য তৈরী করা।প্রার্থমিক ও ইন্টারমেডিয়েট পিএইচপি ডেভলপারদের জন্য এটি খুব সহায়ক হবে কিন্তু যারা MVC শিখতে চান তাদের জন্য এটি নয়। অন্যান্য ফ্রেমওয়ার্কের সাথে এর কোনো তুলনা করা যাবে না এর প্রধান কারন এটির ফিচার অন্যান্য ফ্রেমওয়ার্কের মত না, এটি MVC না এবং এটি অন্যান্য ফ্রেমওয়ার্কের মত এত সমৃদ্ধ না। তবে ছোট ও মাঝারী কাজের জন্য এটি ব্যবহার করতে পারেন। সে ক্ষেত্রে এটি অনেক সহায়ক হবে। নতুন এই ভার্সনটি <strong>Laravel 4</strong> এবং <strong>CodeIgniter</strong> Framework থেকে উৎসাহ পেয়ে আরো উন্নতকরন করা হয়েছে।
+<br/><br/>
+
+এটি একটি <strong>Open Source </strong> প্রোজেক্ট। আপনি চাইলে এই ফ্রেমওয়ার্কে আরো উন্নত ও সমৃদ্ধ করতে পারেন। এর Github Link: <a href="https://nahidz.github.io/ANIPHP">PHPew</a>
+
+		 	<br/>
+		 	<br/>
+		 	<strong>PHPew</strong> আপনাকে ডাটাবেজ পরিচালনা, ইউজার অথেনটিকেশন, ফর্ম ভ্যালিডেশন, ইমেজ প্রসেসিং, রাউটিং এবং আরো অনেক সুবিধা প্রদান করে। এটি থার্ড পার্টি লাইব্রেরী ও সমর্থন করে।
+		 	</p>
+
+		 	<h1>The Artisans</h1>
+		 	<p>
+		 	<strong>PHPew</strong> was created,implemented, design and idea by <a href="http://nahid.co" target="_blank">Mehedi Hasan Nahid</a> who continues to lead development of the framework.
+		 	</p>
+
+		 	<h1>Get PHPew</h1>
+		 	<p>
+		 		To download <strong>PHPew</strong> <a href="https://github.com/nahidz/ANIPHP">click here</a>. Its a open source project with MIT License so anyone can update or modify it by following the MIT rules.
+		 	</p>
+
+		</div>
+		
+	</div>
+</div>
+<script type="text/javascript" src="js/jquery.js"></script>
+<script type="text/javascript" src="js/bootstrap.min.js"></script>
+<script type="text/javascript" src="js/jquery.snippet.js"></script>
+</body>
+</html>

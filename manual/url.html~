@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>aniPHP :: User Manual</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" >
+	<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="css/jquery.snippet.css">
+</head>
+<body>
+<div class="container">
+	<div class="row">
+		<div class="col-lg-12">
+		 	<h1>URL</h1>
+		 	<p>
+			<strong>URL</strong> হল এ ফ্রেমওয়ার্কের কোর লাইব্রেরী। এটি URL সংক্রান্ত যাবতীয় কাজ সম্পাদন করে। আমরা আগেই বলেছি আমাদের এ ফ্রেমওয়ার্কের সকল কোর লাইব্রেরী গুলো স্টেটিক্যালি ডিকলেয়ার করা হয়। এ সংক্রান্ত সকল কাজ Url instance ব্যবহার করে করতে হবে।
+
+<h3>URL Redirect</h3>
+<code>redirect()</code> খুবই প্রয়োজনীয় একটি মেথড যার মাধ্যমে খুব সহজেই বর্তমান URL থেকে অন্য URL এ redirect করে নেয়া যায়। <br/>
+<strong>Syntax: </strong> <code>void Url::redirect(string $url, [array $data]);</code><br/>
+এটি দুটি প্যারামিটার গ্রহন করে। দ্বিতীয় প্যারামিটারটি অপশনাল। 
+আপনি যদি আপনার প্রজেক্টেরই কোনো একটি URL এ রিডাইরেক্ট করতে চান তবে শুধু এর URI টি দিলেই হবে প্রথম প্যারামিটারে। ধরুন আপনি <code>http://your_project/user/login</code> এ রিডািরেক্ট করবেন তাহলে নিচের মত লিখুন।
+	<pre class="code">
+		 	Url::redirect('user/login');</pre>
+কিন্তু আপনি চাচ্ছেন বাহিরের কোনো URL কে রিডাইরেক্ট করতে। যেমন: <code>http://www.wikipedia.org</code> তাহলে পুর্ন URL টি ই দিতে হবে।
+
+<pre class="code">
+		 	Url::redirect('http://www.wikipedia.org');</pre>
+
+<h3>Sending Data With Redirection</h3>
+মজার ব্যপার হল আপনি যদি আপনার প্রজেক্টের কোনো URL এ রিডাইরেক্ট করেন তবে আপনি চাইলে এ সময় এর সাথে কোনো ডাটাও পাঠিয়ে দিতে পারেন। এজন্য আপনাকে <code>redirect()</code> এর দ্বিতীয় প্যারামিটারটি ব্যবহার করতে হবে। দ্বিতীয় প্যারামিটারটি একটি এ্যারে। Array key ডাটার নেম হিসেবে ব্যবহার হয় আর Array value ডাটা হিসেবে ব্যবহার হয়। যেমন, ধরুন আপনি চাইছেন <code>http://your_project/user/login</code> এ রিডািরেক্ট করবেন আর সাথে দুটো ডাটা পাঠাবেন <code>name, email</code> তাহলে আপনাকে নিচের মত করে করতে হবে।
+	<pre class="code">
+	Url::redirect('user/login', array(
+		'name'=>'Nahid Bin Azhar',
+		'email'=>'nahid@codesum.com'
+	));</pre>
+
+<h3>Getting URL/Redirect Data</h3>
+
+ডাটাতো পাঠালেন তাহলে এবার এ ডাটা কিভাবে আপনার রিডাইরেক্ট হওয়া পেজে ব্যবহার করবেন? <code>Url::getData()</code> মেথডটি ডাটা রিট্রিভ করার জন্য ব্যবহার করা হয়। আমরা যে দুটো ডাটা পাঠিয়েছিলাম সেগুলো এবার ব্যবহার করবো।
+<pre class="code">
+	echo Url::getData('name');
+	echo Url::getData('email');</pre>
+
+<h3>Checking Data Existance</h3>
+কোনো নির্দিষ্ট নামের সাপেক্ষে Data আছে কিনা তা দেখার জন্য <code>Url::hasData()</code> মেথডটি ব্যবহার করা হয়। এটি যদি ডাটা থাকে তাহলে <code>true</code> return করে অন্যথায় <code>false</code>
+<pre class="code">
+if(Url::hasData('name'){
+	echo Url::getData('name');
+}</pre>
+<h3>Clear Data</h3>
+URL এর সকল ডাটা মুছে ফেলার জন্য <code>Url::clearAll()</code> মেথডটি ব্যবহার করা হয়।
+<h3>Make an URL</h3>
+প্রজেক্টের জন্য পুর্নাঙ্গ একটি URL তৈরী করার জন্য <code>Url::make()</code> মেথডটি ব্যবহার করা হয়।
+<pre class="code">
+	echo Url::make('user/login');</pre>
+এর আউটপুট হবে এরকম <code>http://your_project.com/user/login</code>
+<h3>Get Current URL</h3>
+বর্তমান এর পুর্নাঙ্গ URL পেতে <code>Url::getCurrent()</code> মেথডটি ব্যবহার করা হয়।
+
+<h3>Get Referer URL</h3>
+বর্তমান URL টি কোন URL থেকে রেফার হয়ে এসেছে তা পেতে <code>Url::getReferer()</code> মেথডটি ব্যবহার করা হয়।
+<h3>Get Current URL Segment Value</h3>
+এটি খুবই গুরুত্বপুর্ন একটি কাজ। ধরুন আপনার বর্তমান URL টি <code>http://your_project/user/rahim</code> এখানে <code>http://your_project/</code> হলো বেস URL . বাকিটুকু কে যদি আমরা নেই তাহলে সেটি হয় এরকম <code>user/rahim</code> এর দুটি সেগমেন্ট 1. <code>user</code> 2.<code>rahim</code> . এখন আমরা যদি ২ নম্বর সেগমেন্টটি পেতে চাই তাহলে <code>Url::getSegment()</code> মেথডটি ব্যবহার করতে হবে।
+<pre class="code">
+	echo Url::getSegment(2);</pre>
+এর আউটপুট হবে <code>rahim</code>
+	</p>
+		</div>
+		
+	</div>
+</div>
+<script type="text/javascript" src="js/jquery.js"></script>
+<script type="text/javascript" src="js/bootstrap.min.js"></script>
+<script type="text/javascript" src="js/jquery.snippet.js"></script>
+
+<script type="text/javascript">
+	$(document).ready(function(){
+$("pre.code").snippet("php",{style:"blacknblue",transparent:false});
+});
+</script>
+</body>
+</html>
