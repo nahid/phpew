@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>aniPHP :: User Manual</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" >
+	<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="css/jquery.snippet.css">
+</head>
+<body>
+<div class="container">
+	<div class="row">
+		<div class="col-lg-12">
+		 	<h1>Routing</h1>
+		 	<p>
+			রাউটিং হল এই ফ্রেমওয়ার্কের একটি মজার ও গুরুত্বপুর্ন অংশ। এটি কাষ্টম, হিউম্যান রিডাবল, SEO ফ্রেন্ডলী ও pretty URL তৈরীতে ব্যবহৃত হয়। Router ছাড়া এ কাজগুলো প্রায় অসম্ভব। সকল রাউটস জমা থাকে  <code>app/router.php</code> এই ডিরেক্টরিতে।
+
+		 	<h3>How to route a Page</h3>
+		 	<code>router.php</code> ফাইলে <code>$_router</code> নামে একটি Array আছে। সমস্থ Route এখানেই লেখা থাকে।
+<strong>Systax:</strong> <pre class="code">$_router=array(
+	'your/custom/uri'=>array(
+		'page'=>'your/page/basename', 
+		'skin'=>false, 
+		'pre'=>'action', 
+		'post'=>'action'
+	)
+);</pre>
+
+প্রতিটি নতুন রাউটের জন্য একটি করে এলিমেন্ট বাড়াতে হবে। আপনাকে একটি পেজ রাউট করতে যা করতে হবে তা হল: <br/>
+প্রতিটি রাউট এক একটি এলিমেন্ট, এলিমেন্টের key অংশে থাকবে আপনার কাঙখিত "URI" আর এর বিপরিতে Value হিসেবে থাকবে আরেকটি Array । যার চারটি এলিমেন্ট থাকতে পারে প্রয়োজন সাপেক্ষে। আর গুলো এক একটি অপশন হিসেবে কাজ করে। রাউট করার সময় আপনি প্রতিটি এলিমেন্ট বাইন্ড করে দিতে পারেন। এগুলো হল:<br/>
+<ul>
+<li><code>page</code></li>
+<li><code>skin</code></li>
+<li><code>pre</code></li>
+<li><code>post</code></li>
+</ul>
+
+এখানে <code>page</code> হল আবশ্যক। আর বাকি তিনটি অপশন Optional. 
+<br/>
+<h4>Page</h4>
+<strong>Page</strong> অংশে আপনার কাঙখিত URL এর সাপেক্ষে কোন পেজটি লোড হবে তার বেজ নেম অথবা যদি পেজটি সাবডিরেক্টরিতে থাকে তবে directory/page_base_name দিতে হবে। 
+ আপনি যদি <code>login.page.php</code> page টিকে <i><code>http://localhost/your_project/user/login</code></i> এ রাউট করতে চান তবে custom uri অংশে বেজ ইউআরএল বাদে শুধু কাঙখিত URI টুকু উল্লেখ করতে হবে। আর page অংশে পেজ এর বেজ নেম <code>.page.php</code> বাদে লিখতে হবে। যেমন:
+<pre class="code">$_router=array(
+	'user/login'=>array(
+		'page'=>'login'
+	)
+
+);</pre>
+আপনি যদি একাধিক রাউট করতে চান তবে, যেমন <code>profile.page.php</code> এই পেজটিকে রাউট করতে চান <i><code>http://localhost/your_project/i/am</code></i> এর মত করে। তাহলে এটি হবে নিচের মত:
+<pre class="code">$_router=array(
+	'user/login'=>array('page'=>'login'),
+	'i/am'=>array('page'=>'profile')
+
+);</pre>
+ 
+এখানে আগের রাউটের সাথে আরেকটি রাউট যুক্ত করা হল।
+<h4>Skin</h4>
+এটি হল মুলত টেমপ্লেট। এই রাউটের পেজের সাথে কোন কোন টেমপ্লেট যুক্ত হবে সেটি নির্ধারন হয় skin এর মাধ্যমে। এটি অপশনাল। আপনি যদি skin define না করেন তবে ডিফল্ট টেমপ্লেট লোড হবে। আর আপনি যদি <code>'skin'=>false</code> দেন তাহলে এর সাথে কোন টেমেপ্লেট যুক্ত হবে না। সকল টেমপ্লেট <code>app/pages/skins/</code> ডিরেক্টরিতে থাকে। প্রতিটি আলাদা টেমপ্লেট আলাদা ডিরেক্টরিতে থাকবে এবং skin নাম হবে ডিরেক্টরির নামে। বিস্তারিত <strong>Template/Skin</strong> অংশে দেখুন।
+<pre class="code">$_router=array(
+	'user/login'=>array(
+		'page'=>'login', 'skin'=>'light'
+	)
+
+);</pre>
+
+<h4>Pre</h4>
+<strong>pre</strong> হল একটি একশন। আপনি যদি চান যে রাউট এক্সিকিউশনের পুর্বে কোনো একটি নির্দিষ্ট কাজ সম্পাদন হবে তবে সেটি <code>pre</code> তে বসবে। <code>pre</code> এর এ্যাকশনটি রাউট এক্সিকিউশনের এর পুর্বেই সংঘটিত হবে। <code>pre</code> এর সকল এ্যাকশন গুলো <code>app/actions/</code> ডিরেক্টরিতে থাকবে। এটি ডেভলপার তার ইচ্ছে মত তৈরী করে নিবে। এ্যাকশন গুলো অবশ্যই <code>Class, Method</code> পদ্ধতিতে হবে। Class এর নাম হবে ফাইল নেম এর মতই শুধু Class এর প্রথম অক্ষরটি বড়হাতের হবে। একটি উধাহরন দিয়ে দেখানো যাক,
+আমরা চাচ্ছি <code>user/login</code> route টি এক্সিকিউশনের পুর্বে সে তারিখ চেক করে দেখবে, যদি আজকের তারিখ <code>2014-10-8</code> এর থেকে বড় হয় তবে সকল কাজ এখানেই টার্মিনেট করবে। এজন্য আমরা <code>app/actions/</code> directory তে একটা ফাইল করবো যার নাম হবে <code>dates.php</code> । এবং Class টি হবে নিচের মত:
+<pre class="code">
+class Dates{
+	function todays($date){
+		if(date('Y-m-d')>$date){
+			die('expire');
+		}
+	}
+}</pre>
+<code>pre</code> তে এ্যাকশন বাইন্ড করার পদ্ধতি: <code>'pre'=>'class/method:param1, param2,..,paramN'</code>. তাহলে এবার আমরা <code>app/actions/</code> ডিরেক্টরি থেকে Dates class এর todays method টিকে কল করব, এবং সাথে todays এর প্যারামিটার ও পাঠাবো। নিচের উধাহরন টা দেখি।
+
+<pre class="code">$_router=array(
+	'user/login'=>array(
+		'page'=>'login', 'skin'=>'light', 'pre'=>'dates/todays:2014-10-8'
+	)
+
+);</pre>
+
+এখানে আমরা <code>pre</code> তে <code>'pre'=>'dates/todays:2014-10-8'</code> এ্যাকশন ডিফাইন করেছি। <code>pre</code> এর এই এ্যাকশনের ফলে Dates class এর todays method টি রাউটের পুর্বে এক্সিকিউট করবে।
+
+<h4>Post</h4>
+<strong>Post</strong> ও pre এর মতই কাজ করে তবে <code>post</code> হল আপনি যদি চান যে রাউট এক্সিকিউশনের পরে কোনো একটি নির্দিষ্ট কাজ সম্পাদন হবে তবে সেটি <code>post</code> এ বসবে। <code>post</code> এর এ্যাকশনটি রাউট এক্সিকিউশনের এর পরে সংঘটিত হবে। 
+
+		 	</p>
+		</div>
+		
+	</div>
+</div>
+<script type="text/javascript" src="js/jquery.js"></script>
+<script type="text/javascript" src="js/bootstrap.min.js"></script>
+<script type="text/javascript" src="js/jquery.snippet.js"></script>
+
+<script type="text/javascript">
+	$(document).ready(function(){
+$("pre.code").snippet("php",{style:"blacknblue",transparent:false});
+});
+</script>
+</body>
+</html>

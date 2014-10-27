@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>aniPHP :: User Manual</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" >
+	<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="css/jquery.snippet.css">
+</head>
+<body>
+<div class="container">
+	<div class="row">
+		<div class="col-lg-12">
+		 	<h1>CRUD</h1>
+		 	<p>
+		 	CRUD (Create Read Update Delete) হল ডাটাবেস পরিচালনা করার জন্য একটি বিল্টইন লাইব্রেরী। এটি <strong>PHPew</strong> এর কোর লাইব্রেরী। <code>Crud</code> ব্যবহারের মাধ্যমে আপনি খুব সহজেই ডাটাবেসকে পরিচালনা করতে পারবেন ও এর নিরাপত্তা বাড়াতে পারবেন। <code>Crud</code> এ <strong>mysqli</strong> ব্যবহার করা হয়েছে। 
+
+		 	<h3>How to use</h3>
+		 	<a href="configuration.html">Configuration</a> চ্যাপ্টারে ডাটাবেস কনফিগারেশন সম্পর্কে বিশদ আলোচনা করা হয়েছে। <br/>
+			<strong>PHPew</strong> তে সকল class(library) কে statically কল করা হয়। ডাটাবেস কনফিগারেশন হয়েগেলে আপনার প্রজেক্ট সম্পুর্ন রুপে প্রস্তুত সমগ্র পাবলিক এরিয়াতে ডাটাবেস একসেস এর জন্য। ডাটাবেস সম্পর্কিত সকল কাজের জন্য আপনাকে আর ভাবতে হবে না ডাটাবেস কানেকশন নিয়ে। এখানে <code>Crud</code> হল Crud ক্লাসের ইন্সট্যান্স।
+
+		 	<h4>Insert</h4>
+			এখানে ডাটা ইনসার্ট করা খুবই সহজ। ধরুন আপনি <code>tbl_users</code> টেবিল এ ডাটা ইনসার্ট করবেন এবং এ টেবিলে তিনটি ফিল্ড আছে যথাক্রমে <code>id, username, password</code> এবার আমরা এই টেবিলে ডাটা ইনসার্ট করব নিম্নের নিয়মে:
+ 	<pre class="code">
+		 	Crud::table('users')
+		 	->save(array(
+		 	'username'=>'nahidz', 
+		 	'password'=>sha1('pwd123')
+		 	)); </pre>
+			
+		<strong>PHPew</strong> তে Method Chaining পদ্ধতি ব্যবহার করা হয়। আগেই বলা হয়েছে <code>Crud</code> হল Crud ক্লাসের ইন্সট্যান্স। আর <code>table()</code> হল এর একটি মেথড।  table() মেথড এর একটি আর্গুমেন্ট সেটি হল টেবিল এর নাম। অবশ্য এখানে টেবিলের নাম প্রি-ফিক্স ছাড়া দিতে হবে। আমাদের ফ্রেমওয়ার্ক সয়ংক্রিয়ভাবে  প্রি-ফিক্স কে যুক্ত করে দিবে।  <code>save()</code> মেথড টি একটি এ্যারে আর্গুমেন্ট গ্রহন করে।  এই এ্যারের key অংশটি দ্বারা টেবিল এর ফিল্ড নাম বুঝানো হয় আর Value অংশটি দ্বারা বুঝানো হয় কি ভ্যাল্যু ফিল্ডে ইনসার্ট হবে। ব্যস ইনসার্ট হয়ে গেল। কি? অনেক সহজ না? 
+		 	<h4>Update</h4>
+			এটিও ডাটা ইনর্সাশনের মত একই। শুধু এখানে <code>save()</code> এর পুর্বে <code>where()</code> ব্যবহার করতে হবে। <code>where()</code> তিনটি প্যারামিটার গ্রহন করে (filed name, condition, value).
+		 	<pre class="code">
+		 	Crud::table('users')
+		 	->where('id','=',3)
+		 	->save(array(
+		 	'username'=>'nahid.uc'
+		 	));</pre>
+		 	উপরের কোড রান করানোর ফলে এ SQL Query টি Generate হয়েছে <code>UPDATE tbl_users SET username='nahid.uc' WHERE id=3</code>
+
+		 	<h4>Delete</h4>
+		 	ডাটা মুছে (delete ) করার জন্য নিচের মত কোড চালনা করতে হবে।
+		 	<pre class="code">
+		 	Crud::table('users')
+		 	->where('id','=',3)
+		 	->delete();</pre>
+
+		 	<h4>Fetch Record/Data</h4>
+			আমরা ডাটা ফেচ করা খুব সহজ করে দিয়েছি আপনার জন্য।  আপনি একটি লাইন কোড লিখে একটি টেবিলের সকল ডাটা তুলে নিয়ে আসতে পারেন।
+
+		 	<pre class="code">
+		 	Crud::table('users')
+		 	->all();</pre>
+		 	উপরের কোডের জন্য এই এসকিউএল টা জেনারেট হয়েছে <code>SELECT * FROM tbl_users</code> <br/>
+		 	আপনি যদি কোনো কন্ডিশনের সাপেক্ষে ডাটা retrive করতে চান তবে এরকম কোড রান করুন
+		 	<pre class="code">
+		 	Crud::table('users')
+		 	->where('username','=','nahidz')
+		 	->all();</pre>
+
+		 	<br/>
+		 	আপনি যদি একটি টেবিলের নির্দিষ্ট কিছু কলামের ডাটা retrive করতে চান তবে সে কোডটি হবে এরকম
+		 	<pre class="code">
+		 	Crud::table('users')
+		 	->where('gender','=','male')
+		 	->get(array('username','email', 'joining_date'));</pre>
+		 	উপরের কোডের জন্য এই এসকিউএল টা জেনারেট হয়েছে  <code>SELECT username, email, joining_date FROM tbl_users WHERE gender='male'</code>
+
+		 	<h3>Working with data</h3>
+		ডাটাতো নিয়ে আসলেন এবার একে ব্যবহার করবেন কিভাব? হ্যা এখানে সমস্থ ডাটা অবজেক্ট আকারে নিয়ে আসা হয়। এ জন্য <code>result()</code> method টি ব্যবহার করতে হবে।
+		 	<pre class="code">
+		 	$data=Crud::table('users')
+		 	->get(array('name', 'username'));
+
+		 	foreach($data->result() as $res){
+		 		echo $res->name." ".$res->username;
+		 	}</pre>
+
+		 	<h3>Sorting Data</h3>
+		 	ডাটা সর্টিং এখন আরো সহজ। এজন্য <code>sortAs()</code> method টি ব্যবহার করা হয়। এর দুটি প্যারামিটার। (column name, order type)
+		 	<pre class="code">
+		 	Crud::table('users')
+		 	->sortAs('name', 'asc')
+		 	->all();</pre>
+
+		 	<h3>Counting</h3>
+			resulting data কে <code>getCount()</code> মেথডের মাধ্যমে কাউন্ট করে নিন
+		 	<pre class="code">
+		 	$data=Crud::table('users')
+		 	->all();
+		 	echo $data->getCount();</pre>
+
+		 	<h3>Get Next Auto Increment ID of Table</h3>
+			আপনি যদি জানতে চান পরবর্তী Auto Increment ID টা কি তাহলে নিচের কোড টি হবে
+		 	<pre class="code">
+		 	Crud::table('users')
+		 	->nextId();</pre>
+
+		 	<h3>Get All Table of Database</h3>
+		 	ডাটাবেস এর সমস্থ টেবিলের লিস্ট পেতে নিচের কোডটি লিখুন
+		 	<pre class="code">
+		 	Crud::getTables();</pre>
+
+		 	<h3>Get All Column List of Table</h3>
+				একটি টেবিলের সকল কলাম এর নাম লিস্টে পেতে নিচের মত কোড লিখুন
+		 	<pre class="code">
+		 	Crud::table('users')
+		 	->getFields();</pre>
+
+		 	<h3>Get Current Query String</h3>
+			বর্তমানে যে ডাটাবেসের কোড রান করেছেন এর ফলে যে SQL কোড জেনারেট হয়েছে তা দেখার জন্য নিম্নের কোডটি রান করান
+		 	You can get current executed query string by using
+		 	<pre class="code">
+				$query=Crud::table('users')
+				->where('username','=', 'nahidz')
+				->all();
+				echo $query->getQueryString();</pre>
+		 	</p>
+
+		</div>
+		
+	</div>
+</div>
+<script type="text/javascript" src="js/jquery.js"></script>
+<script type="text/javascript" src="js/bootstrap.min.js"></script>
+<script type="text/javascript" src="js/jquery.snippet.js"></script>
+
+
+<script type="text/javascript">
+	$(document).ready(function(){
+$("pre.code").snippet("php",{style:"blacknblue",transparent:false});
+});
+</script>
+</body>
+</html>

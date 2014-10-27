@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>aniPHP :: User Manual</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" >
+	<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="css/jquery.snippet.css">
+</head>
+<body>
+<div class="container">
+	<div class="row">
+		<div class="col-lg-12">
+		 <h1>Page</h1>
+		 <p>
+		<strong>PHPew</strong> হল NoMVC টাইপ ফ্রেমওয়ার্ক। এখানে আপনার MVC সম্পর্কে কোনো ধারনার প্রয়োজন নাই। আমাদের ফ্রেমওয়ার্কের প্রধান বৈশিষ্ট্য হল এটি পেজ রাউটিং এর সময় আপনার চাহিদার সাপেক্ষে টেমপ্লেট যুক্ত করে। (রাউটিং সম্পর্কে পরবর্তি অংশে জানবেন)। আমাদের মুল উদ্দেশ্য পেজ তৈরী, দেখা ও রাউটিং সহজতর করা। 
+		 <h3>What is Page</h3>
+		<strong>Page</strong> হল একটি ওয়েব প্রজেক্টের প্রধান অংশ যা ইউজার URL দ্বারা একসেস করে। পেজ হল ডেভলপারের জন্য একটি ক্যানভাস যেখানে সে তার ইচ্ছে মত মুক্তভাবে কোড সাজাতে, তৈরী করতে বা এই ফ্রেমওয়ার্কের সমগ্র বিল্টইন লাইব্রেরী এবং থার্ডপার্টি লাইব্রেরী ব্যবহার করতে পারবেন। ভয়ের কারন নেই আপনি একই সাথে এখানে PHP raw code ও লিখতে পারবেন।<br/> পেজ হল প্রজেক্টের একমাত্র Publicly Viewable অংশ। কিন্তু আপনি এটি সরাসরি একসেস করতে পারবেন না। আমাদের ইন্টিলিজেন্ট প্রোগ্রাম পেজকে সনাক্ত করে এবং আপনার ব্যবহারের উপযুক্ত করে প্রদর্শন করে।
+<br/><br/>
+		 সমগ্র পেজ জমা থাকে <code>app/pages</code> ডিরেক্টরিতে। প্রতিটি পেজ এর অবশ্যই  <code>.page.php</code> extension থাকতে হবে। যেমন: যদি আপনি চান <strong>login</strong> নামে একটি পেজ তৈরী করতে তবে সেটি <code>login.page.php</code> নামে তৈরী করতে হবে। Pages ডিরেক্টরিতে ডিফল্ট <code>home.page.php</code> ফাইলটি আছে। এখানে আরো যেসকল ফাইল ডিফল্টভাবে দেয়া থাকে তা হল:
+	<ul>
+		<li><code>header.php</code></li>
+		<li><code>footer.php</code></li>
+		<li><code>404.php</code></li>
+	</ul>
+
+	<h4>404.php</h4>
+	এটি হল <strong>PHPew</strong> এর ডিফল্ট ফাইল। রাউটার যখন <code>Pages</code> ডিরেক্টরিতে কোনো পেজ খুজে না পায় তখন <code>404.php</code> ফাইলটা প্রদর্শন করে। আপনি চাইলে  <code>404.php</code> এর ডিজাইন নিজের মত করে নিতে পারেন। 
+<br/><br/>
+<code>header.php, footer.php</code> এর আলোচনা <strong>Template/Skin</strong> অংশে করা হবে।
+		 </p>
+		</div>
+		
+	</div>
+</div>
+<script type="text/javascript" src="js/jquery.js"></script>
+<script type="text/javascript" src="js/bootstrap.min.js"></script>
+<script type="text/javascript" src="js/jquery.snippet.js"></script>
+</body>
+</html>

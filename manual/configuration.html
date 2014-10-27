@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>aniPHP :: User Manual</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" >
+	<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="css/jquery.snippet.css">
+</head>
+<body>
+<div class="container">
+	<div class="row">
+		<div class="col-lg-12">
+		 <h1>Configuration</h1>
+		 <p>
+		<strong>PHPew</strong> এর সকল কনফিগারেশন ফাইল জমা থাকে <code>app/config</code> ডিরেকটরিতে. প্রজেক্ট শুরু করার পুর্বেই আপনাকে এটি যথাযথ ভাবে কনফিগার করে নিতে হবে। এখানে দুধরনের কনফিগারেশন আছে <i>basic</i> এবং <i>database</i>.
+
+		 <h3>Basic Configuration</h3>
+		 বেসিক কনফিগারেশন এর জন্য আপনাকে <code>app/config/basic.php</code> ফাইলটি ওপেন করতে হবে।
+		 <h4>Setup Base URL</h4>
+		 <pre class='code'>
+		 	define('BU',"http://your_project/path/");</pre>
+			আপনার প্রজেক্ট এর বেজ URL অথবা ডিফল্ট URL এখান থেকে কনফিগার করুন।  Base url দ্বারা আপনার প্রজেক্ট'এর ডিফল্ট URL অথবা প্রধান URL কে বোঝায়। Example: <code>http://localhost/your_project/</code>
+		 <h4>Development Environment</h4>
+		 <pre class='code'>
+		 	define("DEV_ENV",TRUE);</pre>
+		 আপনি যদি প্রজেক্ট চলাকালীন অবস্থায় এর Error ও Warning গুলো প্রদর্শন করতে চান তবে <i>DEV_ENV</i> <code>true</code> করে দিতে হবে অন্যথায় <code>false</code> হবে।
+		 <h4>Home Page</h4>
+		  <pre class='code'>
+		 	define('HOMEPAGE', 'home');</pre>
+		আপনি চাইলে আপনার পছন্দমত হোম পেজ সেট করে নিতে পারেন। এজন্য আপনাকে পেজ এর বেজ নেম ব্যবহার করতে হবে। যেমন: আপনার পেজ এর নাম যদি হয় <code>example.page.php</code> সেক্ষেত্রে আপনি শুধু <code>example</code> নামটি ব্যবহার করবেন। শুরুতে <code>home</code> ডিফল্ট ভাবে সেট করা আছে।
+
+		 <h3>Database Configuraion</h3>
+		 আপনাকে ডাটাবেস কনফিগার করার জন্য <code>app/config/database.php</code> এই ফাইলটি ওপেন করতে হবে।
+
+		 <h4>Enabeling Database</h4>
+		 <pre class="code">
+		 define('DBENABLE', true);</pre>
+		 আপনি যদি আপনার প্রজেক্টে ডাটাবেস ব্যবহার করতে চান তবে <code>true</code> সেট করতে হবে. কিন্তু যদি কোনো ডাটাবেস ব্যবহার না করেন তবে <code>false</code> সেট করুন। অবশ্য ডিফল্ট এটি <code>false</code> অবস্থায় থাকে।
+
+		 <h4>Configure Database</h4>
+		 <pre class="code">// setting your database host name, by default it will localhost
+define('HOST','localhost');
+
+// setting database username, in local server its default root
+define('USER','root');
+
+// setting database password
+define('PWD','');
+
+// setting database name
+define('DB','your_database_name');
+
+// setting table prefix, example: tbl_
+define('TBL_PREFIX','tbl_');</pre>
+ডাটাবেস কনফিগারেশনের জন্য আপনাকে এখানে ডাটাবেস সংক্রান্ত কিছু তথ্য দিতে হবে।<br/>
+<ul>
+<li><code>HOST</code> এ আপনাকে সার্ভারে হোস্ট নেম দিতে হবে। লোকাল ডেভলেমেন্টের জন্য এটি সাধারনত <code>localhost</code> হয়।</li>
+<li>এর পর আপনাকে ডাটাবেস এর Username ও Password দিতে হবে যথাক্রমে <code>USER</code> এবং <code>PWD</code> অংশে । সাধারনত লোকাল ডেভলপমেন্টে ইউজারনেম থাকে <code>root</code> এবং পাসওয়ার্ড থাকে Blank(ফাকা)। যদি আপনার ডাটাবেস এ কোন পাসওয়ার্ড না থাকে তবে <code>PWD</code> blank রাখুন।</li>
+<li><code>DB</code> অংশে আপনার ব্যবহৃত ডাটাবেস এর পুর্ন নামটি দিন । </li>
+<li>টেবিল প্রি-ফিক্স যদি ব্যবহার করেন তবে <code>TBL_PREFIX</code> এ অংশে সেটি দিন। ডিফল্ট এটি ফাকা থাকে। তবে আমরা আপনাকে টেবিল প্রি-ফিক্স ব্যবহার করার জন্য পরামর্শ দিচ্ছি।</li>
+</ul>
+		 </p>
+		</div>
+		
+	</div>
+</div>
+<script type="text/javascript" src="js/jquery.js"></script>
+<script type="text/javascript" src="js/bootstrap.min.js"></script>
+<script type="text/javascript" src="js/jquery.snippet.js"></script>
+
+<script type="text/javascript">
+	$(document).ready(function(){
+$("pre.code").snippet("php",{style:"blacknblue",transparent:false});
+});
+</script>
+</body>
+</html>

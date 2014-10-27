@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>PHPew :: User Manual</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" >
+	<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="css/jquery.snippet.css">
+</head>
+<body>
+<div class="container">
+	<div class="row">
+		<div class="col-lg-12">
+		 <h1>Authentication</h1>
+		 <p>
+			<code>Auth</code> library টি ইউজার লগইন বা অথেনটিকেশন কে আরো সহজ ও সমৃদ্ধ করেছে। মাত্র একলাইনের কোডে এখন আপনি লগইন করতে পারবেন। এই লাইব্রেরী টি আপনাকে Login, Logout, Login state check, User Login Information provide, Setting User define data ইত্যাদি সার্ভিস প্রদান করে। আপনি খুব সহজে User Authentication সংক্রান্ত কাজ এর মাধ্যমে সম্পাদন করতে পারবেন।
+
+<h3>Login</h3>
+এটি ইউজার লগইন এর জন্য ব্যবহৃত হয়। এই মেথডটি দুটি প্যারামিটার গ্রহন করে। প্রথমটি কোন টেবিল থেকে লগিন হবে তা আর দ্বিতীয়টি কি রুলস ফলো করবে তা। ধরি আপনি <code>tbl_users</code> থেকে লগইন করবেন যেখানে <code>username</code> ও <code>password</code> ফিল্ড দুটির সাথে ইনপুটকৃত ডাটা মিললে লগইন হবে। যেমন:
+<pre class="code">Auth::login('users', array(
+	'username'=>$_POST['username'],
+	'password'=>$_POST['password']
+));</pre>
+ব্যস লগইন হয়ে গেল। এখানে লগইন হওয়ার সাথে সাথে <code>tbl_users</code> table এর সকল ফিল্ডগুলোর ডাটা এই ইউজারের সাপেক্ষে user data session এ সেভ হয়ে গেছে। আপনি চাইলে আপনার পছন্দমত ডাটা user session এ সেভ করে রাখতে পারেন <code>setData()</code> মেথড এর মাধ্যমে। 
+
+<pre class="code">Auth::setData('status', 'login');</pre> 
+সিঙ্গেল ডাটা সেট করার জন্য এ ভাবে লিখতে হবে। এই মেথডটি দুটি প্যারামিটার সাপোর্ট করে। প্রথমটি আবশ্যক। যদি একটি ডাটা সেট করেন তবে প্রথম টাতে name আর পরের টাতে value হবে। অবশ্য দ্বিতীয় প্যারামিটারটি অপশনাল। আপনি যদি একাধিক ডাটা একসাথে সেট করতে চান তবে প্রথম প্যারামিটারে একটি Array পাঠাতে হবে। এক্ষেত্রে Array key তে যাবে name আর Value তে যাবে Data.
+<pre class="code">Auth::setData(array(
+	'status'=>'login',
+	'type'=>'guest'
+));</pre> 
+
+User Session Data ব্যবহার করার জন্য <code>getData()</code> মেথডটি ব্যবহার করা হয়।
+<pre class="code">Auth::getData('status');</pre> 
+
+<h3>Check Data</h3>
+User Session Data আছে কিনা তা জানার জন্য <code>hasData()</code> মেথড টি ব্যবহার করা হয়। এটি একটি প্যারামিটার সাপোর্ট করে। যদি কাঙখিত নেম'এ ডাটা থাকে তবে এই মেথডটি <code>true</code> return করবে।
+<pre class="code">if(Auth::hasData('status'){
+	echo Auth::getData('status');
+}</pre> 
+
+<h3>Checking Authentication State</h3>
+<code>check()</code> মেথডটি ব্যবহার করা হয় ইউজার অথেনটিকেশন এর অবস্থা জানার জন্য। যদি ইউজার লগইন অবস্থায় থাকে তবে এটি <code>true</code> return করবে অন্যথায় <code>false</code>
+
+<h3>Getting Current Authentication Token</h3>
+প্রত্যেক লগইন এর জন্য <strong>PHPew</strong> এর Authentication system একটি ইউনিক টোকেন জেনারেট করে। সেটি ব্যবহারের জন্য <code>Auth::getToken()</code> মেথডটি ব্যবহার করা হয়।
+<h3>User Logout</h3>
+User Logout এর জন্য <code>Auth::logout()</code> টি ব্যবহার করতে হবে।
+		</p>
+		</div>
+		
+	</div>
+</div>
+<script type="text/javascript" src="js/jquery.js"></script>
+<script type="text/javascript" src="js/bootstrap.min.js"></script>
+<script type="text/javascript" src="js/jquery.snippet.js"></script>
+
+<script type="text/javascript">
+	$(document).ready(function(){
+$("pre.code").snippet("php",{style:"blacknblue",transparent:false});
+});
+</script>
+</body>
+</html>

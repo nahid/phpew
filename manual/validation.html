@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>aniPHP :: User Manual</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" >
+	<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="css/jquery.snippet.css">
+</head>
+<body>
+<div class="container">
+	<div class="row">
+		<div class="col-lg-12">
+		 	<h1>Validation</h1>
+		 	<p>
+		 	Form Validation হল খুবই শক্তিশালী টুল <strong>PHPew</strong> Framework এর। আপনি চাইলে অনেকগুলো ইনপুটকে মাত্র কয়েক লাইনের কোডের মাধ্যমে সম্পাদন করতে পারবেন। এটিও এই ফ্রেমওয়ার্কের একটি কোর লাইব্রেরী।
+
+		 	<h3>How to use</h3>
+			Validation library ফর্মের ইনপুটের Validaty নিশ্চিত করার জন্য ব্যবহার করা হয়। ধরুন আপনার একটি ফর্ম আছে যাতে <code>username</code> এবং <code>website</code> নামে দুটো ইনপুট ফিল্ড আছে। আপনি চাইছেন এ ইনপুট ফিল্ড দুটোর Validation check করতে। এজন্য প্রথমেই আপনাকে Validation rules সেট করতে হবে। Validation রুলস গুলো Array তে সেট করতে হবে।
+		 	<pre class="code">
+		 	$rules=array(
+		 		'username'=>'required&min:5&unique:users,username',
+		 		'website'=>'required&range:7,70&url'
+		 	);</pre>
+		এখানে Array key দ্বারা Input field name কে বুঝানো হয়েছে। আর Array value অংশে রুলস গুলো বসাতে হবে। প্রত্যেকটি রুলস (&) প্রতীক দ্বারা পৃথক করা হয়। এই অধ্যায়ের শেষে সবগুলো রুলস এর বর্ননা সহ তালিকা দেয়া আছে।
+
+		 	<h3>How to validate all Inputs</h3>
+			সমগ্র ইনপুট গুলো Validate করতে এটি ব্যবহার করতে হবে <code>Validator::validate([input,[rules]])</code>
+		 যেমন:
+		 	<pre class="code">
+		 	Validator::validate($_POST, $rules);</pre>
+		 	এই একটি মাত্র লাইন দিয়ে আপনি সমস্থ ফর্ম এর ইনপুট ভ্যালিডেট করতে পারবেন।
+
+		 	<h3>Get all errors of validations</h3>
+			<strong>PHPew</strong> এর Validator একটি শক্তিশালী টুল ফর্ম ভ্যালিডেশনের সমস্থ Error বের করার জন্য। এর Error সমুহ যেকোনো পেজের যেকোনো যায়গায় আপনি প্রদর্শন করতে পারবেন। পেজের যেকোনো যায়গায় এটি প্রদর্শন করার জন্য নিচের মন কোড করতে হবে
+		 	<pre class="code">
+		 		if(Validator::hasErrors()){
+		 			foreach(Validator::errorsAll() as $err){
+		 				echo $err."\n";
+		 			}
+		 		}</pre>
+
+		 		<code>hasErrors()</code> function টি <code>true</code> return করে তখনই যখন Validation এ কোনো Error ধরা পরে। আর যদি কোনো Error সংঘঠিত না হয় তবে এটি <code>false</code> return করে। <code>errorsAll()</code> function টি সমস্থ Error গুলো একটি Array তে return করে আর তাই সেটি প্রদর্শনের জন্য <code>foreach</code> ব্যবহার করা হয়েছে।
+
+		 		<h3>Retrive all errors of a specific input</h3>
+				আপনি যদি চান একটি নির্দিষ্ট ইনপুট ফিল্ডের সকল Error প্রদর্শন করবেন যেমন  <code>username</code> এর সকল Error প্রদর্শন করতে চাইছি তাহলে নিচের মত কোড লিখতে হবে।
+		 		
+		 		<pre class="code">
+		 		if(Validator::hasErrors()){
+		 			foreach(Validator::getErrors('username') as $err){
+		 				echo $err."\n";
+		 			}
+		 		}</pre>
+
+		 		<h3>List of Rules</h3>
+		 		<table width="100%" class="table">
+		 			<tr><th>Rule</th><th>Description</th></tr>
+		 			<tr>
+		 			<td><code>required</code></td>
+		 			<td><def>এটি দ্বারা ইনপুট ফিল্ডের ডাটা নিশ্চিত করা হয়। যদি কোনো ফিল্ডে ভ্যাল্যু দেয়া আবশ্যক হয় তবে এটি ব্যবহার করতে হবে।</def></td>
+		 			</tr>	
+		 			<tr>
+		 			<td><code>min:value</code></td>
+		 			<td><def>এটি দ্বারা ফিল্ডের মিনিমান ক্যারক্টার সংখ্যা নিশ্চিত করা হয়।</def></td>
+		 			</tr>
+		 			<tr>
+		 			<td><code>max:value</code></td>
+		 			<td><def>এটি দ্বারা ফিল্ডের ম্যাক্সিমাম ক্যারক্টার সংখ্যা নিশ্চিত করা হয়।</def></td>
+		 			</tr>
+					<tr>
+		 			<td><code>file</code></td>
+		 			<td><def>ইনপুট ফিল্ডটি ফাইল কিনা তা যাচাই করার জন্য এটি ব্যবহার করা হয়।</def></td>
+		 			</tr>
+					<tr>
+		 			<td><code>date</code></td>
+		 			<td><def>ইনপুটকৃত ফিল্ডটি date কিনা তা নিশ্চিত করার জন্য এটি ব্যবহার করা হয়।</def></td>
+		 			</tr>
+					<tr>
+		 			<td><code>date_max:desire_date</code></td>
+		 			<td><def><i>date_max</i> আপনার দেয়া ডেটের সাথে ম্যাচ করে দেখবে। এবং ইনপুট ফিল্ডের ডেট কখনই desire date এর থেকে বড় হতে পারবে না।</def></td>
+		 			</tr>
+					<tr>
+		 			<td><code>date_min:desire_date</code></td>
+		 			<td><def><i>date_min</i> আপনার দেয়া ডেটের সাথে ম্যাচ করে দেখবে। এবং ইনপুট ফিল্ডের ডেট কখনই desire date এর থেকে ছোটো হতে পারবে না।</def></td>
+		 			</tr>
+					<tr>
+		 			<td><code>in:comma_separated_param</code></td>
+		 			<td><def>এটি নিশ্চিত করবে আপনার ইনপুটকৃত ডাটা কমা সেপারেটেড পারাম এর মধ্যে আছে কিনা। যদি না থাকে তবে Error দেখাবে।</def></td>
+		 			</tr>
+
+					<tr>
+		 			<td><code>not_in:comma_separated_param</code></td>
+		 			<td><def>এটি নিশ্চিত করবে আপনার ইনপুটকৃত ডাটা কমা সেপারেটেড পারাম এর মধ্যে আছে কিনা। যদি থাকে তবে Error দেখাবে।</def></td>
+		 			</tr>
+		 			<tr>
+					
+		 			<td><code>image</code></td>
+		 			<td><def>এটি নিশ্চিত করবে আপনার ইনপুটকৃত ফিল্ডের ভ্যাল্যু ইমেজ কিনা।</def></td>
+		 			</tr>
+					<tr>
+		 			<td><code>file_type:comma_separated_param</code></td>
+		 			<td><def>এটি নিশ্চিত করবে আপনার ইনপুটকৃত ডাটা ফাইল কিনা এবং comma separeted value তে যেসকল ফাইল টাইপ উল্ল্যেখ করা হয়েছে ইনপুটকৃত ফাইলটি তার সাথে মিলে কিনা। যদি মিলে তাহলে ভ্যালিড।</def></td>
+		 			</tr>
+					<tr>
+		 			<td><code>same:Afield</code></td>
+		 			<td><def>এটি নিশ্চিত করে ইনপুটকৃত ফিল্ডের ভ্যালুর সাথে Afield এর Value ম্যাচ করে কিনা</def></td>
+		 			</tr>
+					<tr>
+		 			<td><code>different:Afield</code></td>
+		 			<td><def>এটি নিশ্চিত করে ইনপুটকৃত ফিল্ডের ভ্যালুর সাথে Afield এর Value এর পার্থক্য আছে কিনা</def></td>
+		 			</tr>
+		 			<tr>
+		 			<td><code>email</code></td>
+		 			<td><def>এটি নিশ্চিত করে ইনপুটকৃত ডাটা সত্যিই Email কিনা</def></td>
+		 			</tr>
+		 			<tr>
+		 			<td><code>url</code></td>
+		 			<td><def>এটি নিশ্চিত করে ইনপুটকৃত ডাটা সত্যিই URL কিনা</def></td>
+		 			</tr>
+		 			<tr>
+		 			<td><code>numeric</code></td>
+		 			<td><def>এটি নিশ্চিত করে ইনপুটকৃত ডাটা numeric value কিনা</def></td>
+		 			</tr>
+					<tr>
+		 			<td><code>integer</code></td>
+		 			<td><def>এটি নিশ্চিত করে ইনপুটকৃত ডাটা integer value কিনা</def></td>
+		 			</tr>
+		 			<tr>
+		 			<td><code>range:min,max</code></td>
+		 			<td><def>এটি নিশ্চিত করে ইনপুটকৃত ডাটা min value থেকে max value এর মধ্যে কিনা</def></td>
+		 			</tr>
+		 			<tr>
+		 			<td><code>pattern:expression</code></td>
+		 			<td><def>এটি নিশ্চিত করে ইনপুটকৃত ডাটা উল্লেখিত প্যাটার্ন অনুসরন করে কিনা</def></td>
+		 			</tr>
+		 			<tr>
+		 			<td><code>unique:table,column</code></td>
+		 			<td><def>এটি নিশ্চিত করে ইনপুটকৃত ডাটা উল্লেখিত table এর Column'র কোনো ডাটার সাথে ম্যাচ করে কিনা। যদি করে তাহলে Error দেখাবে।</def></td>
+		 			</tr>
+
+<tr>
+		 			<td><code>exist:table,column</code></td>
+		 			<td><def>এটি unique এর মতই শুধু যদি ডাটা ম্যাচ না করে তাহলে Error দেখাবে।</def></td>
+		 			</tr>
+		 		</table>
+		 	</p>
+		</div>
+		
+	</div>
+</div>
+<script type="text/javascript" src="js/jquery.js"></script>
+<script type="text/javascript" src="js/bootstrap.min.js"></script>
+<script type="text/javascript" src="js/jquery.snippet.js"></script>
+
+<script type="text/javascript">
+	$(document).ready(function(){
+$("pre.code").snippet("php",{style:"blacknblue",transparent:false});
+});
+</script>
+</body>
+</html>

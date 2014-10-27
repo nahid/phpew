@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>aniPHP :: User Manual</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" >
+	<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="css/jquery.snippet.css">
+</head>
+<body>
+<div class="container">
+	<div class="row">
+		<div class="col-lg-12">
+		 <h1>Templating</h1>
+		 <p>
+		 Templating হল একটি দারুন ফিচার <strong>PHPew</strong> এর জন্য। যা সয়ংক্রিয় ভাবে অথবা ডেভলপারের চাহিদার ভিত্তিতে পেজ কন্টেন্টের সাথে যুক্ত হয়ে যায়। Template কে এখানে Skin নামে ব্যবহার করা হয়েছে। সকল টেমপ্লেট <code>app/pages/skins/</code> ডিরেক্টরিতে থাকে। প্রতিটি আলাদা টেমপ্লেল skins ডিরেক্টরিতে আলাদা আলাদা ফোল্ডারে থাকে। আর ডিফল্ট টেমপ্লেট <code>pages</code> ডিরেক্টরিতে থাকে। ফ্রেমওয়ার্কের সাথে <code>pages</code> ডিরেক্টরিতে <code>header.php</code> এবং <code>footer.php</code> 
+দুটো ফাইল থাকে। এটিই ডিফল্ট টেমপ্লেট। আপনি যদি একাধিক টেমপ্লেট ব্যবহার করতে চান তবে <code>app/pages/skins/</code> ডিরেক্টরিতে আলাদা আলাদা ফোল্ডার করে রাখতে হবে। ফোল্ডারের নামই হল টেমপ্লেটের নাম। ফোল্ডারের ভিতর টেমপ্লেটকে বিভক্ত করে <code>header.php</code> এবং <code>footer.php</code> দুটি ফাইলে রাখতে হবে। আপনি যদি রাউটে skin এ স্কীন নেম উল্লেখ করে দেন তাহলে সয়ংক্রিয় ভাবে এর ভিতরের <code>header.php</code> এবং <code>footer.php</code> কে কন্টেন্ট এর সাথে যুক্ত করে দিবে এ ফ্রেমওয়ার্ক। ধরে নিলাম আমি <strong>light</strong> নামে একটি টেমপ্লেট বানাতে চাচ্ছি তাহলে <code>app/pages/skins/</code> ডিরেক্টরিতে <code>light</code> নামে একটি ফোল্ডার তৈরী করতে হবে এবং এর ভিতর টেমপ্লেটকে বিভক্ত করে <code>header.php</code> এবং <code>footer.php</code> ফাইলে রাখতে হবে। এখন আপনি যদি এই টেমপ্লেটটিকে কোনো রাউটের সাথে যুক্ত করে দিতে চান তবে নিচের মত করে দিন:
+
+<pre class="code">$_router=array(
+	'user/login'=>array(
+		'page'=>'login',
+		'skin'=>'light'
+	)
+
+);</pre>
+ব্যস সয়ংক্রিয়ভাবে টেমপ্লেট যুক্ত হয়ে যাবে আপনার পেজ কন্টেন্টের সাথে।
+<br/>
+আর আপনি যদি <code>skin</code> উল্লেখ না করেন তবে ডিফল্ট টেমপ্লেট লোড হবে।
+		 </p>
+		</div>
+		
+	</div>
+</div>
+<script type="text/javascript" src="js/jquery.js"></script>
+<script type="text/javascript" src="js/bootstrap.min.js"></script>
+<script type="text/javascript" src="js/jquery.snippet.js"></script>
+
+<script type="text/javascript">
+	$(document).ready(function(){
+$("pre.code").snippet("php",{style:"blacknblue",transparent:false});
+});
+</script>
+</body>
+</html>
