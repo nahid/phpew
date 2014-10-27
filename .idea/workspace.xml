@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="53345616-630a-4c21-b001-09c13b114d0b" name="Default" comment="First commit for PHPew 1.3 Alpha" />
+    <list default="true" id="53345616-630a-4c21-b001-09c13b114d0b" name="Default" comment="First commit for PHPew 1.3 Alpha">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/LICENSE" afterPath="$PROJECT_DIR$/LICENSE" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/README.md" afterPath="$PROJECT_DIR$/README.md" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+    </list>
     <ignored path="phpew-1.3.iws" />
     <ignored path=".idea/workspace.xml" />
     <ignored path=".idea/dataSources.local.xml" />
@@ -54,6 +58,17 @@
       <command text="git commit -m &quot;First commit for PHPew&quot;" />
       <command text="git push origin" />
       <command text="git push --set-upstream origin master" />
+      <command text="git push origin master" />
+      <command text="git add ." />
+      <command text="git commit -m &quot;First Commit for PHPew&quot;" />
+      <command text="git remote add origin https://github.com/nahidz/phpew.git" />
+      <command text="git push origin master" />
+      <command text="git pull" />
+      <command text="git push origin master" />
+      <command text="git pull origin master" />
+      <command text="git push origin master" />
+      <command text="git push -f" />
+      <command text="git push -u origin master" />
     </commandsHistory>
   </component>
   <component name="Git.Settings">
